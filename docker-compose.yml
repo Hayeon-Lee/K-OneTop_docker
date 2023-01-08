@@ -1,8 +1,15 @@
 version: "3"
 
 services:
-
-
+  frontend:
+    build: ./frontend
+    command: ["npm", "start"]
+    ports:
+      - 8081:8081
+    networks:
+      - app-tier
+    volumes:
+      - ./frontend:/app
   backend:
     build: ./backend
     ports:
