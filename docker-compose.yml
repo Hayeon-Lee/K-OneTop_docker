@@ -16,7 +16,28 @@ services:
       - 8080:8080
     networks:
       - app-tier
+    external_links:
+      - redis
+#    links:
+#      - redis
 
+  redis:
+    image: redis:latest
+    container_name: redis
+    hostname: redis
+    ports:
+      - 6379:6379
+    labels:
+      - "name=redis"
+      - "mode=standalone"
+#    volumes:
+#      - ./data:/data
+#      - ./redis/redis.conf:/usr/local/redis/redis.conf
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    networks:
+      - app-tier
 networks:
   app-tier:
     driver: bridge
+
